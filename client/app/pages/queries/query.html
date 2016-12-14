@@ -37,27 +37,32 @@
       <ul class="list-inline m-t-20">
         <li>
           <span class="zmdi zmdi-account"></span>
-          <span class="text-muted">Created By </span>
+          <span class="text-muted">Created By</span>
           <strong>{{query.user.name}}</strong>
         </li>
         <li ng-if="query.last_modified_by && query.user.id != query.last_modified_by.id">
           <span class="zmdi zmdi-account"></span>
-          <span class="text-muted">Last Modified By </span>
+          <span class="text-muted">Last Modified By</span>
           <strong>{{query.last_modified_by.name}}</strong>
         </li>
         <li>
           <span class="zmdi zmdi-time"></span>
-          <span class="text-muted">Updated at </span>
+          <span class="text-muted">Updated at</span>
           <strong>
             <rd-time-ago value="query.updated_at"></rd-time-ago>
           </strong>
         </li>
         <li>
           <span class="zmdi zmdi-time"></span>
-          <span class="text-muted">Created at </span>
+          <span class="text-muted">Created at</span>
           <strong>
             <rd-time-ago value="query.created_at"></rd-time-ago>
           </strong>
+        </li>
+        <li>
+          <span class="zmdi zmdi-archive"></span>
+          <span class="text-muted">Version</span>
+          <strong>{{query.version}}</strong>
         </li>
       </ul>
       </p>
