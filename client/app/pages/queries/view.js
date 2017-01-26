@@ -1,6 +1,8 @@
 import { pick, any, some, find } from 'underscore';
 import template from './query.html';
 
+const versions = {"count": 4, "page": 1, "page_size": 25, "results": [{"object_version": 584, "user_id": 1, "created_at": "2017-01-19T23:08:20.524895-05:00", "object_type": "queries", "object_id": "3", "change": {"latest_query_data_id": {"current": 607, "previous": 607}, "user_id": {"current": 1, "previous": 1}, "last_modified_by_id": {"current": 1, "previous": 1}, "schedule": {"current": null, "previous": null}, "is_archived": {"current": false, "previous": false}, "org_id": {"current": 1, "previous": 1}, "name": {"current": "some query", "previous": "some query"}, "query_hash": {"current": "4d19c1ee3f6e042303dc8855cb394c5f", "previous": "4d19c1ee3f6e042303dc8855cb394c5f"}, "query": {"current": "select * from films where id < 2;", "previous": "select * from films where id < 2;"}, "api_key": {"current": "bb95d64bf003aa77d23629d18601f14125643093", "previous": "bb95d64bf003aa77d23629d18601f14125643093"}, "is_draft": {"current": false, "previous": false}, "options": {"current": {"parameters": []}, "previous": {"parameters": []}}, "data_source_id": {"current": 1, "previous": 1}, "description": {"current": null, "previous": null}}}, {"object_version": 3, "user_id": 1, "created_at": "2016-12-12T15:12:13.168946-05:00", "object_type": "queries", "object_id": "3", "change": {"is_draft": {"current": false, "previous": true}, "query_hash": {"current": "1290f7683fdc15a6027449655bbce702", "previous": "1290f7683fdc15a6027449655bbce702"}, "last_modified_by": {"current": 1, "previous": 1}}}, {"object_version": 2, "user_id": 1, "created_at": "2016-12-12T14:57:23.960841-05:00", "object_type": "queries", "object_id": "3", "change": {"data_source": {"current": 1, "previous": 1}, "description": {"current": null, "previous": null}, "latest_query_data": {"current": 2, "previous": 2}, "schedule": {"current": null, "previous": null}, "last_modified_by": {"current": 1, "previous": 1}, "query_hash": {"current": "1290f7683fdc15a6027449655bbce702", "previous": "1290f7683fdc15a6027449655bbce702"}, "query": {"current": "select * from films;", "previous": "select * from films;"}, "is_draft": {"current": true, "previous": true}, "options": {"current": {"parameters": []}, "previous": {"parameters": []}}, "name": {"current": "some query", "previous": "some query"}}}, {"object_version": 1, "user_id": 1, "created_at": "2016-12-12T14:57:11.517173-05:00", "object_type": "queries", "object_id": "3", "change": {}}]};
+
 function QueryViewCtrl($scope, Events, $route, $routeParams, $http, $location, $window, $q,
   Title, AlertDialog, Notifications, clientConfig, toastr, $uibModal, currentUser,
   Query, DataSource) {
@@ -18,6 +20,9 @@ function QueryViewCtrl($scope, Events, $route, $routeParams, $http, $location, $
     $scope.showLog = false;
     $scope.queryResult = $scope.query.getQueryResult(maxAge);
   }
+
+  // We don't need the 0th index of the returned versions.
+  $scope.versions = versions.results.slice(1, versions.results.length);
 
   function getDataSourceId() {
     // Try to get the query's data source id
@@ -235,6 +240,22 @@ function QueryViewCtrl($scope, Events, $route, $routeParams, $http, $location, $
   $scope.setVisualizationTab = (visualization) => {
     $scope.selectedTab = visualization.id;
     $location.hash(visualization.id);
+  };
+
+  $scope.compareQueryVersion = () => {
+    if (!$scope.query.query) {
+      return;
+    }
+
+    alert('yo');
+    /*
+    getQueryResult(0);
+    $scope.lockButton(true);
+    $scope.cancelling = false;
+    Events.record('execute', 'query', $scope.query.id);
+
+    Notifications.getPermissions();
+    */
   };
 
   $scope.$watch('query.name', () => {
