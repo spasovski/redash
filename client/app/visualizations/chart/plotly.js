@@ -213,6 +213,8 @@ const PlotlyChart = () => {
           series.mode = 'markers';
         } else if (type === 'bubble') {
           series.mode = 'markers';
+        } else if (type === 'heatmap') {
+          series.type = 'heatmap';
         }
       }
 
@@ -450,6 +452,7 @@ const PlotlyChart = () => {
       scope.$watch('data', (data) => {
         if (!isEmpty(data)) {
           Plotly.redraw(plotlyElement);
+          console.log('data found', data);
         }
       }, true);
     },
